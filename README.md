@@ -3,7 +3,7 @@
 Introduction to using thresholding tools with PlantCV.
 
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/danforthcenter/plantcv-tutorial-threshold/HEAD?labpath=table_of_contents.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/danforthcenter/plantcv-tutorial-threshold/HEAD?labpath=index.ipynb)
 
 ## Tutorial tags/keywords
 
