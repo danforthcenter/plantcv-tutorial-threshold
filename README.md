@@ -1,5 +1,7 @@
 # Thresholding (a.k.a. segmentation) Tutorials
 
+[![test-pr](https://github.com/danforthcenter/plantcv-tutorial-threshold/actions/workflows/ci-tests.yml/badge.svg)](https://github.com/danforthcenter/plantcv-tutorial-threshold/actions/workflows/ci-tests.yml)
+
 Introduction to using thresholding tools with PlantCV.
 
 
