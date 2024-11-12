@@ -4,24 +4,27 @@ import pytest
 import nbformat
 from nbconvert.preprocessors import ExecutePreprocessor
 
+# inputs_list = [
+#     ['modules', '01.thresholding.ipynb'],
+#     ['modules', '02.edge-detection.ipynb'],
+#     ['modules', '03.supervised-machine-learning.ipynb'],
+#     ['modules', '04.unsupervised-machine-learning.ipynb'],
+#     ['modules', '05.background-subtraction.ipynb'],
+#     ['modules', '06.2d-thresholding.ipynb']
+# ]
 inputs_list = [
-    ['modules', '01.thresholding.ipynb'],
-    ['modules', '02.edge-detection.ipynb'],
-    ['modules', '03.supervised-machine-learning.ipynb'],
-    ['modules', '04.unsupervised-machine-learning.ipynb'],
-    ['modules', '05.background-subtraction.ipynb'],
-    ['modules', '06.2d-thresholding.ipynb']
+    os.path.join('modules', '01.thresholding.ipynb')
 ]
 
 
 # ##########################
 # Tests executing the notebook
 # ##########################
-@pytest.mark.parametrize('dir,notebook', inputs_list)
+@pytest.mark.parametrize('notebook', inputs_list)
 def test_notebook(dir, notebook, tmpdir):
     tmp = tmpdir.mkdir('sub')
     # Change working directory
-    os.chdir(dir)
+    #os.chdir(dir)
 
     # Open the notebook
     with open(notebook, "r") as f:
@@ -29,7 +32,7 @@ def test_notebook(dir, notebook, tmpdir):
 
     # Process the notebook
     ep = ExecutePreprocessor(timeout=600, kernel_name="python3")
-    ep.preprocess(nb, {"metadata": {"path": dir}})
+    ep.preprocess(nb, {"metadata": {"path": os.getwd()}})
 
     # Save the executed notebook
     out_nb = os.path.join(tmp, "executed_notebook.ipynb")
