@@ -32,7 +32,7 @@ def test_notebook(notebook, tmpdir):
 
     # Process the notebook
     ep = ExecutePreprocessor(timeout=600, kernel_name="python3")
-    ep.preprocess(nb, {"metadata": {"path": os.getwd()}})
+    ep.preprocess(nb, {"metadata": {"path": os.getcwd()}})
 
     # Save the executed notebook
     out_nb = os.path.join(tmp, "executed_notebook.ipynb")
