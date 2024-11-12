@@ -21,7 +21,7 @@ inputs_list = [
 # Tests executing the notebook
 # ##########################
 @pytest.mark.parametrize('notebook', inputs_list)
-def test_notebook(dir, notebook, tmpdir):
+def test_notebook(notebook, tmpdir):
     tmp = tmpdir.mkdir('sub')
     # Change working directory
     #os.chdir(dir)
