@@ -4,39 +4,37 @@ import pytest
 import nbformat
 from nbconvert.preprocessors import ExecutePreprocessor
 
-TEST_TMPDIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".cache")
-
-
-# ##########################
-# Tests setup function
-# ##########################
-def setup_function():
-    if not os.path.exists(TEST_TMPDIR):
-        os.mkdir(TEST_TMPDIR)
+inputs_list = [
+    ['modules', '01.thresholding.ipynb'],
+    ['modules', '02.edge-detection.ipynb'],
+    ['modules', '03.supervised-machine-learning.ipynb'],
+    ['modules', '04.unsupervised-machine-learning.ipynb'],
+    ['modules', '05.background-subtraction.ipynb'],
+    ['modules', '06.2d-thresholding.ipynb']
+]
 
 
 # ##########################
 # Tests executing the notebook
 # ##########################
-def test_notebook():
+@pytest.mark.parametrize('dir,notebook', inputs_list)
+def test_notebook(dir, notebook, tmpdir):
+    tmp = tmpdir.mkdir('sub')
+    # Change working directory
+    os.chdir(dir)
+
     # Open the notebook
-    with open("index.ipynb", "r") as f:
+    with open(notebook, "r") as f:
         nb = nbformat.read(f, as_version=4)
 
     # Process the notebook
     ep = ExecutePreprocessor(timeout=600, kernel_name="python3")
-    ep.preprocess(nb, {"metadata": {"path": TEST_TMPDIR}})
+    ep.preprocess(nb, {"metadata": {"path": dir}})
 
     # Save the executed notebook
-    out_nb = os.path.join(TEST_TMPDIR, "executed_notebook.ipynb")
+    out_nb = os.path.join(tmp, "executed_notebook.ipynb")
     with open(out_nb, "w", encoding="utf-8") as f:
         nbformat.write(nb, f)
 
     assert os.path.exists(out_nb)
 
-
-# ##############################
-# Clean up test files
-# ##############################
-def teardown_function():
-    shutil.rmtree(TEST_TMPDIR)
