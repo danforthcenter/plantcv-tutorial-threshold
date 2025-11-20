@@ -1,2 +1,3 @@
 ipympl
+altair < 6
 plantcv
